@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class MrGunMan : MonoBehaviour
 {
+    [Header("Movement Parameters")]
+    [SerializeField] private float f_moveSpeed;
+    [Header("Attack Parameters")]
     [SerializeField] private Transform t_firePoint;
     [SerializeField] private ManaBar mb_mana;
     [SerializeField] private float f_attackCost;
-    // Start is called before the first frame update
+    private PlayerInputs pi_inputs;
+    private Rigidbody rb;
+
+    public ManaBar Mana { get { return mb_mana; } }
+    
     void Start()
     {
-        
+        pi_inputs = GetComponent<PlayerInputs>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && mb_mana.CanCast(f_attackCost))
@@ -22,5 +30,10 @@ public class MrGunMan : MonoBehaviour
             _bullet.GetComponent<Bullet>().SetOwner(gameObject);
             mb_mana.ReduceMana(f_attackCost);
         }
+    }
+
+    private void LateUpdate()
+    {
+        rb.velocity = pi_inputs.MoveDirection * f_moveSpeed;
     }
 }
