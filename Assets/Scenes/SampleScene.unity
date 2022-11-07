@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9025a648c8f0c24da65bdc26f0c60a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f_moveSpeed: 2
+  f_moveSpeed: 3
   t_firePoint: {fileID: 835265909}
   mb_mana: {fileID: 996372929}
   f_attackCost: 2
@@ -270,7 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2bc13e5e7124f540aae499b52d85656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v_moveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &185818705
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +395,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!1 &390178210
 GameObject:
@@ -755,7 +754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -866, y: -57}
+  m_AnchoredPosition: {x: -751, y: -57}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &996372929
@@ -879,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1169,7 +1168,7 @@ MonoBehaviour:
   goA_basePoolObjects:
   - {fileID: 185818705}
   - {fileID: 1775513224}
-  iA_poolSizes: 1400000005000000
+  iA_poolSizes: 5000000005000000
 --- !u!4 &2135580540
 Transform:
   m_ObjectHideFlags: 0

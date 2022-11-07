@@ -24,10 +24,16 @@ public class MrGunMan : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && mb_mana.CanCast(f_attackCost))
+        if (pi_inputs.Attacking && mb_mana.CanCast(f_attackCost))
         {
-            GameObject _bullet = PoolManager.x.SpawnObject("Bullet", t_firePoint.position, transform.forward * 30f, t_firePoint.rotation);
-            _bullet.GetComponent<Bullet>().SetOwner(gameObject);
+            for(int i = 0; i < 20; i++)
+            {
+                Vector3 _randPos = t_firePoint.position;
+                _randPos.y += Random.Range(-1f, 1f);
+                _randPos.x += Random.Range(-1f, 1f);
+                GameObject _bullet = PoolManager.x.SpawnObject("Bullet", _randPos, transform.forward * 30f, t_firePoint.rotation);
+                _bullet.GetComponent<Bullet>().SetOwner(gameObject);
+            }
             mb_mana.ReduceMana(f_attackCost);
         }
     }

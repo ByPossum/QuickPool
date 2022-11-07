@@ -35,8 +35,8 @@ public class Pool
         for (int i = 0; i < _size; i++)
         {
             GameObject _newObject = GameObject.Instantiate(_base);
-            _newObject.SetActive(false);
             _newObject.transform.position = Vector3.one * 100; // Stores our object at 100, 100, 100.
+            _newObject.SetActive(false);
             // When unity Instantiates an object, it adds (clone) to it's name, however we don't want this so we remove the clone from the name.
             _newObject.name = _newObject.name.Remove(s_poolName.Length);
             // Adds the object to the pool
