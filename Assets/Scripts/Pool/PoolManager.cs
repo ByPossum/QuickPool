@@ -39,6 +39,14 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This is O(n)
+    /// </summary>
+    /// <param name="_objectName"></param>
+    /// <param name="_position"></param>
+    /// <param name="_velocity"></param>
+    /// <param name="_rotation"></param>
+    /// <returns></returns>
     public GameObject SpawnObject(string _objectName, Vector3 _position, Vector3 _velocity, Quaternion _rotation)
     {
         for (int i = 0; i < p_pools.Length; i++)
@@ -47,6 +55,34 @@ public class PoolManager : MonoBehaviour
                 return p_pools[i].SpawnObjectFromPool(_position, _velocity, _rotation);
         }
         Debug.LogError("The object you're asking for is not in the pool.");
+        return null;
+    }
+
+    public GameObject[] SpawnMultipleObjects(string _objectName, int _amount, Vector3 _position, Vector3 _offset, Vector3 _velocity, Quaternion _rotation)
+    {
+        GameObject[] objs = new GameObject[_amount];
+        Pool pool = GetPool(_objectName);
+        for (int i = 0; i < _amount; i++)
+        {
+            objs[i] = pool.SpawnObjectFromPool(_position, _velocity, _rotation);
+            _position.x += Random.Range(-_offset.x, _offset.x);
+            _position.y += Random.Range(-_offset.y, _offset.y);
+            _position.z += Random.Range(-_offset.z, _offset.z);
+            objs[i].transform.position = _position;
+            objs[i].transform.rotation = _rotation;
+            objs[i].GetComponent<Rigidbody>().velocity = _velocity;
+        }
+        return objs;
+    }
+
+    private Pool GetPool(string _poolName)
+    {
+        for (int i = 0; i < p_pools.Length; i++)
+        {
+            if (p_pools[i].GetName() == _poolName)
+                return p_pools[i];
+        }
+        Debug.LogError($"No pool named {_poolName}");
         return null;
     }
 

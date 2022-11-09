@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     // The bullet's owner
     private GameObject go_owner;
     private float f_currentTime = 0f;
+    private bool b_pooled = true;
 
     private void OnEnable()
     {
@@ -32,28 +33,34 @@ public class Bullet : MonoBehaviour
 
     private void Die()
     {
-        PoolManager.x.KillObject(gameObject);
+        if (gameObject != null)
+            if (b_pooled)
+                PoolManager.x.KillObject(gameObject);
+            else
+                Destroy(gameObject);
     }
 
     /// <summary>
     /// This makes sure the object doesn't kill itself when it collides with the object that spawns it.
     /// </summary>
     /// <param name="_newOwner">The object we want to not kill it.</param>
-    public void SetOwner(GameObject _newOwner)
+    public void SetOwner(GameObject _newOwner, bool _pooled)
     {
+        b_pooled = _pooled;
         go_owner = _newOwner;
     }
 
     private async void DeathTimer()
     {
-        if (gameObject.activeInHierarchy)
-        {
-            for (float i = 0; i < DEATHTIME; i += Time.deltaTime)
+        if(gameObject != null)
+            if (gameObject.activeInHierarchy)
             {
-                f_currentTime += Time.deltaTime;
-                await System.Threading.Tasks.Task.Yield();
+                for (float i = 0; i < DEATHTIME; i += Time.deltaTime)
+                {
+                    f_currentTime += Time.deltaTime;
+                    await System.Threading.Tasks.Task.Yield();
+                }
+                Die();
             }
-            Die();
-        }
     }
 }
