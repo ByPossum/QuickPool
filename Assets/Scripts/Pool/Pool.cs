@@ -84,6 +84,12 @@ public class Pool
         return _target;
     }
 
+    public GameObject[] SpawnMany(int _amount)
+    {
+        GameObject[] _spawned = new GameObject[_amount];
+
+        return _spawned;
+    }
     /// <summary>
     /// Resets all the transform values of the object and sets it inactive.
     /// </summary>

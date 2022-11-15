@@ -15,6 +15,8 @@ public class PoolManager : MonoBehaviour
     // This is the actual pool we'll be getting our objects from
     private Pool[] p_pools;
 
+    Dictionary<string, Pool> D_pools = new Dictionary<string, Pool>();
+
     // Awake is called before Start which means this is likely to be one of the first things that's set up.
     void Awake()
     {
@@ -27,7 +29,6 @@ public class PoolManager : MonoBehaviour
             x = this;
 
         // Here we're initializing our Pool array to be the same size as the number of objects we want to be pooled.
-        p_pools = new Pool[goA_basePoolObjects.Length];
         for (int i = 0; i < goA_basePoolObjects.Length; i++)
         {
             // This is a cheeky way of guarding against potential size mismatches between goA_basePoolObjects and iA_poolSizes
@@ -35,7 +36,8 @@ public class PoolManager : MonoBehaviour
             if (iA_poolSizes.Length > i)
                 poolSize = iA_poolSizes[i];
             // Here we're calling the constructor we created in our Pool class using the "new" keyword.
-            p_pools[i] = new Pool(goA_basePoolObjects[i], poolSize);
+            D_pools.Add(goA_basePoolObjects[i].name, new Pool(goA_basePoolObjects[i], poolSize));
+            //p_pools[i] = new Pool(goA_basePoolObjects[i], poolSize);
         }
     }
 
@@ -49,11 +51,8 @@ public class PoolManager : MonoBehaviour
     /// <returns></returns>
     public GameObject SpawnObject(string _objectName, Vector3 _position, Vector3 _velocity, Quaternion _rotation)
     {
-        for (int i = 0; i < p_pools.Length; i++)
-        {
-            if (p_pools[i].GetName() == _objectName)
-                return p_pools[i].SpawnObjectFromPool(_position, _velocity, _rotation);
-        }
+        if (D_pools.ContainsKey(_objectName))
+            return D_pools[_objectName].SpawnObjectFromPool(_position, _velocity, _rotation);
         Debug.LogError("The object you're asking for is not in the pool.");
         return null;
     }
@@ -77,11 +76,8 @@ public class PoolManager : MonoBehaviour
 
     private Pool GetPool(string _poolName)
     {
-        for (int i = 0; i < p_pools.Length; i++)
-        {
-            if (p_pools[i].GetName() == _poolName)
-                return p_pools[i];
-        }
+        if (D_pools.ContainsKey(_poolName))
+            return D_pools[_poolName];
         Debug.LogError($"No pool named {_poolName}");
         return null;
     }
