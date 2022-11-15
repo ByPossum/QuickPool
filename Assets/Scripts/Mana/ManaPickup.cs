@@ -11,7 +11,7 @@ public class ManaPickup : MonoBehaviour
         if (collision.transform.GetComponent<MrGunMan>())
         {
             collision.transform.GetComponent<MrGunMan>().Mana.IncreaseMana(f_manaAmount);
-            PoolManager.x.KillObject(gameObject);
+            PoolManager.x.KillObject(gameObject, name);
         }
     }
 
@@ -20,7 +20,7 @@ public class ManaPickup : MonoBehaviour
         if (other.transform.GetComponent<MrGunMan>())
         {
             other.transform.GetComponent<MrGunMan>().Mana.IncreaseMana(f_manaAmount);
-            PoolManager.x.KillObject(gameObject);
+            PoolManager.x.KillObject(gameObject, name);
         }
     }
 }

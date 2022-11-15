@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     {
         if (gameObject != null)
             if (b_pooled)
-                PoolManager.x.KillObject(gameObject);
+                PoolManager.x.KillObject(gameObject, name);
             else
                 Destroy(gameObject);
     }

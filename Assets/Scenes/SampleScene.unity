@@ -157,13 +157,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9025a648c8f0c24da65bdc26f0c60a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  b_usePool: 0
+  b_usePool: 1
   f_moveSpeed: 3
   _base: {fileID: 185818705}
   t_firePoint: {fileID: 835265909}
   mb_mana: {fileID: 996372929}
   f_attackCost: 2
-  i_numberOfBullets: 20
+  i_numberOfBullets: 1000
   t_camParent: {fileID: 1002497776}
   f_lookSpeed: 1800
 --- !u!4 &157756578

@@ -39,6 +39,7 @@ public class PoolManager : MonoBehaviour
             D_pools.Add(goA_basePoolObjects[i].name, new Pool(goA_basePoolObjects[i], poolSize));
             //p_pools[i] = new Pool(goA_basePoolObjects[i], poolSize);
         }
+
     }
 
     /// <summary>
@@ -59,11 +60,11 @@ public class PoolManager : MonoBehaviour
 
     public GameObject[] SpawnMultipleObjects(string _objectName, int _amount, Vector3 _position, Vector3 _offset, Vector3 _velocity, Quaternion _rotation)
     {
-        GameObject[] objs = new GameObject[_amount];
         Pool pool = GetPool(_objectName);
-        for (int i = 0; i < _amount; i++)
+        GameObject[] objs = pool.SpawnMany(_amount);
+        for (int i = 0; i < objs.Length; i++)
         {
-            objs[i] = pool.SpawnObjectFromPool(_position, _velocity, _rotation);
+            objs[i].SetActive(true);
             _position.x += Random.Range(-_offset.x, _offset.x);
             _position.y += Random.Range(-_offset.y, _offset.y);
             _position.z += Random.Range(-_offset.z, _offset.z);
@@ -86,16 +87,9 @@ public class PoolManager : MonoBehaviour
     /// Returns an object to it's pool.
     /// </summary>
     /// <param name="_objectToKill"></param>
-    public void KillObject(GameObject _objectToKill)
+    public void KillObject(GameObject _objectToKill, string _poolName)
     {
-        for (int i = 0; i < p_pools.Length; i++)
-        {
-            if (p_pools[i].GetName() == _objectToKill.name)
-            {
-                p_pools[i].ReturnObjectToPool(_objectToKill);
-                return;
-            }
-        }
-        Debug.LogError("There was no pool to return the object to.");
+        D_pools[_poolName].ReturnObjectToPool(_objectToKill);
+        //Debug.LogError("There was no pool to return the object to.");
     }
 }

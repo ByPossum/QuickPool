@@ -87,7 +87,17 @@ public class Pool
     public GameObject[] SpawnMany(int _amount)
     {
         GameObject[] _spawned = new GameObject[_amount];
-
+        int _current = 0;
+        for(int i = 0; i < L_pool.Count; i++)
+        {
+            if (!L_pool[i].activeInHierarchy && _current < _amount)
+            {
+                _spawned[_current] = L_pool[i];
+                _current++;
+            }
+            if (_current >= _amount)
+                return _spawned;
+        }
         return _spawned;
     }
     /// <summary>
